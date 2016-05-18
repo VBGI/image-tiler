@@ -7,9 +7,9 @@ tiles them into specified MS Word document.
 
     Usage: tiler.py <filename> <image_width>
 
-        <filename> -- MS Word document filename (filenam.docx will be created)
+        <filename> -- MS Word document (filename.docx will be created)
         <image_width>  -- width of image (in cm) inserted to the word document; 
-                         all images will have the same width.
+                          all images (inside the docx) will have the same width.
 
     The script looks for images with names of the form: somename_xx.ext, where:
         ext -- one of the allowed extensions (*.jpg, *.bmp, *.png, *.jpeg);
