@@ -41,10 +41,10 @@ section.start_type = WD_SECTION.NEW_PAGE
 # ----------- Page settings -------------------
 section.page_height = Inches(11.69)
 section.page_width = Inches(8.27)
-section.left_margin = Inches(0.2)
-section.right_margin = Inches(0.2)
-section.top_margin = Inches(0.2)
-section.bottom_margin = Inches(0.2)
+section.left_margin = Inches(0.1)
+section.right_margin = Inches(0.1)
+section.top_margin = Inches(0.1)
+section.bottom_margin = Inches(0.1)
 # ----------------------------------------------
 
 numpat = re.compile(r'.+_(\d+)\..+')
@@ -83,11 +83,12 @@ run = paragraph.add_run()
 for d, dirs, files in os.walk('.'):
     for f in files:
         if os.path.splitext(f)[1].lower() in ['.png', '.jpg', '.jpeg', '.bmp']:
+            print(f)
             if numpat.match(f):
                 try:
                     thenum = int(numpat.findall(f)[0])
                     for j in range(thenum):
-                        run.add_picture(os.path.join(d, f), width=Inches(imsize/2.54))
+                        run.add_picture(os.path.join(d, f.decode('utf8')), width=Inches(imsize/2.54))
                 except ValueError:
                     pass
 
