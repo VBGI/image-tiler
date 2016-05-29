@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf8
 '''
 Simple image tiler
 
@@ -80,16 +81,26 @@ paragraph.style = document.styles['No Spacing']
 
 run = paragraph.add_run()
 
-for d, dirs, files in os.walk('.'):
+for d, dirs, files in os.walk('/home/dmitry/Documents/EXCHANGE/ЭТИКЕТКИ'):
+    count = 0
     for f in files:
         if os.path.splitext(f)[1].lower() in ['.png', '.jpg', '.jpeg', '.bmp']:
-            print(f)
             if numpat.match(f):
+                count += 1
                 try:
                     thenum = int(numpat.findall(f)[0])
                     for j in range(thenum):
-                        run.add_picture(os.path.join(d, f.decode('utf8')), width=Inches(imsize/2.54))
+                        run.add_picture(os.path.join(d.decode('utf8'), f.decode('utf8')), width=Inches(imsize/2.54))
                 except ValueError:
                     pass
+    try:
+        os.remove(os.path.join(d, os.path.basename(d) + '_' + filename + '.docx'))
+    except (IOError, OSError):
+        pass
 
-document.save(filename + '.docx')
+    try:
+        if count > 0:
+            document.save(os.path.join(d, os.path.basename(d) + '_' + filename + '.docx'))
+    except (IOError, OSError):
+        pass
+
